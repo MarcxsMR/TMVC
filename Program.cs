@@ -12,11 +12,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<StoreDbContext>(
-    options  =>
+    options =>
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnection"));
     }
-    );
+);
+
+// Agregamos el servicio con ciclo de vida Singleton
+builder.Services.AddSingleton<ILoggerService, LoggerService>();
 
 builder.Services.AddTransient<IProductService, ProductService>();
 
